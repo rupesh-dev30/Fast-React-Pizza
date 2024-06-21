@@ -15,10 +15,10 @@ export default function AppLayout() {
 
       <main>
         <h1>Content</h1>
+        <Outlet />
       </main>
 
       <CartOverview />
-      <Outlet />
     </div>
-  )
+  );
 }
