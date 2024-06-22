@@ -1,4 +1,5 @@
 import { Form, useActionData, useNavigation } from 'react-router-dom';
+import Button from '../../ui/Button';
 
 const fakeCart = [
   {
@@ -34,31 +35,35 @@ function CreateOrder() {
   const cart = fakeCart;
 
   return (
-    <div>
-      <h2>Ready to order? Let&apos;s go!</h2>
+    <div className="px-6 py-6">
+      <h2 className="mb-8 text-xl font-semibold">
+        Ready to order? Let&apos;s go!
+      </h2>
 
       {/* <Form method="POST" action="/order/new"> */}
       {/* no need to write /order/new because react router simple match with nearest or closest route */}
 
       <Form method="POST">
-        <div>
-          <label>First Name</label>
-          <input className='input' type="text" name="customer" required />
-        </div>
-
-        <div>
-          <label>Phone number</label>
-          <div>
-            <input className='input' type="tel" name="phone" required />
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+          <label className="sm:basis-40">First Name</label>
+          <div className="grow">
+            <input className="input w-full" type="text" name="customer" required />
           </div>
-          {formErrors?.phone && <p>{formErrors.phone}</p>}
         </div>
 
-        <div>
-          <label>Address</label>
-          <div>
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+          <label className="sm:basis-40">Phone number</label>
+          <div className="grow">
+            <input className="input w-full" type="tel" name="phone" required />
+            {formErrors?.phone && <p className='text-xs mt-2 text-red-700 bg-red-100 p-2 rounded-md'>{formErrors.phone}</p>}
+          </div>
+        </div>
+
+        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+          <label className="sm:basis-40">Address</label>
+          <div className="grow">
             <input
-              className="input"
+              className="input w-full"
               type="text"
               name="address"
               required
@@ -66,7 +71,7 @@ function CreateOrder() {
           </div>
         </div>
 
-        <div>
+        <div className='mb-12 flex gap-5 items-center'>
           <input
             className="h-6 w-6 accent-yellow-400 focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2"
             type="checkbox"
@@ -75,17 +80,14 @@ function CreateOrder() {
             // value={withPriority}
             // onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor="priority">Want to yo give your order priority?</label>
+          <label htmlFor="priority" className='font-medium'>Want to yo give your order priority?</label>
         </div>
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <button
-            disabled={isSubmitting}
-            className="inline-block rounded-full bg-yellow-400 px-4 py-3 font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed"
-          >
+          <Button disabled={isSubmitting} type="primary">
             {isSubmitting ? 'Placing Order...' : 'Order now'}
-          </button>
+          </Button>
         </div>
       </Form>
     </div>
